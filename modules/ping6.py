@@ -2,12 +2,12 @@ import os
 from sanic.response import json
 from utils import verifyIPv6
 
-def ping6():
-	hostname = "2607:f8b0:4004:805::200e" #example
-	verifyIPv6(hostname)
-	response = os.system("ping6 -c 1 -w2 " + hostname + " > /dev/null 2>&1")
+def ping6(ip_addr):
+	ip_addr = verifyIPv6(ip_addr)
+	if ip_addr is None:
+			return "error"
 
-	#and then check the response...
+	response = os.system("ping6 -c 1 -w2 " + ip_addr + " > /dev/null 2>&1")
 	if response == 0:
 	  status = "online"
 	else:
@@ -15,5 +15,7 @@ def ping6():
 
 	return status
 
-def invoke():
-	return json({"status": ping6()})
+def invoke(request):
+	ip_addr = request.json['ip']
+	print(ip_addr)
+	return json({"status": ping6(ip_addr)})
