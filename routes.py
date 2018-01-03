@@ -16,10 +16,11 @@ def routes(app):
 	async def ping_req(request):
 		return ping.invoke(request)
 
-	@app.route("/ping6")
+	@app.route("/ping6", methods=['POST'])
 	async def ping6_req(request):
-		return ping6.invoke()
+		return ping6.invoke(request)
 
-	@app.route("/cert")
+	@app.route("/cert", methods=['POST'])
 	async def cert_req(request):
-		return cert.invoke("todo")
+		return cert.invoke(request)
+
