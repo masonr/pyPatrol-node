@@ -29,6 +29,14 @@ class UnitTests(unittest.TestCase):
 		self.assertEqual(response.status, 200)
 		data = json.loads(response.text)
 		self.assertEqual(data['status'], 'offline')
+
+		# Test real IPv6 hostname (Google)
+		# Expected result: status = online
+		params = {'ip': 'google.com'}
+		request, response = app.test_client.post('/ping', data=json.dumps(params))
+		self.assertEqual(response.status, 200)
+		data = json.loads(response.text)
+		self.assertEqual(data['status'], 'online')
 		
 		# Test an IPv6 address
 		# Expected result: status = error
@@ -100,7 +108,7 @@ class UnitTests(unittest.TestCase):
 		self.assertEqual(data['reason'], 'expired')
 
 		# Test an invalid domain
-		# Expected result: valid = false, reason = timeout
+		# Expected result: valid = false, reason = error
 		params = {'hostname': 'thisserverdoesnotexist.com', 'buffer': '14'}
 		request, response = app.test_client.post('/cert', data=json.dumps(params))
 		self.assertEqual(response.status, 200)
