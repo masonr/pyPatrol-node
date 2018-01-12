@@ -18,11 +18,11 @@
 
   `{'ip': '[ip/hostname]', 'port': '[port]'}`
 
-* **Ping Success Response:**
+* **TCP Port Listing Response:**
 
   * **Content:** `{ 'status': 'online' }`
  
-* **Ping Failure Response:**
+* **TCP Port Not Listing Response:**
 
   * **Content:** `{ 'status': 'offline' }`
   
