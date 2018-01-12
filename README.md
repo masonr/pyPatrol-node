@@ -12,11 +12,12 @@ These instructions will get you a copy of the project up and running on your loc
 
 * The following pip packages are also required:
   * [sanic](https://pypi.python.org/pypi/Sanic)
-  * [python-valve](https://pypi.python.org/pypi/python-valve)
+  * [python-valve](https://pypi.python.org/pypi/python-valve) [v0.2.1 or later]
+  * [aiohttp](https://pypi.python.org/pypi/aiohttp)
   * [requests](https://pypi.python.org/pypi/requests)
   
 ```bash
-  $ pip3 install sanic python-valve requests
+  $ pip3 install sanic python-valve>=0.2.1 aiohttp requests
 ```
 
 * The host machine must be IPv6-capable.
@@ -32,7 +33,7 @@ These instructions will get you a copy of the project up and running on your loc
 2. Run the unittests
 ```bash
   $ cd pyPatrol
-  $ python3 tests.py
+  $ python3 test.py
 ```
 After running all of the tests for each module, the final output should say - "OK".
 
