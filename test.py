@@ -195,5 +195,38 @@ class UnitTests(unittest.TestCase):
 		data = json.loads(response.text)
 		self.assertEqual(data['status'], 'error')
 
+	def test_steam_server(self):
+		# Test a (hopefully) valid Steam server (pulled one from gametracker.com -- may go offline)
+		# Expected result: status = online
+		params = {'ip': '46.188.102.34', 'port': '27030'}
+		request, response = app.test_client.post('/steam_server', data=json.dumps(params))
+		self.assertEqual(response.status, 200)
+		data = json.loads(response.text)
+		self.assertEqual(data['status'], 'online')
+
+		# Test an invalid Steam server (random ip and port)
+		# Expected result: status = offline
+		params = {'ip': '123.122.121.120', 'port': '8787'}
+		request, response = app.test_client.post('/steam_server', data=json.dumps(params))
+		self.assertEqual(response.status, 200)
+		data = json.loads(response.text)
+		self.assertEqual(data['status'], 'offline')
+
+		# Test a bad port number
+		# Expected result: status = error
+		params = {'ip': '8.8.8.8', 'port': '70000'}
+		request, response = app.test_client.post('/steam_server', data=json.dumps(params))
+		self.assertEqual(response.status, 200)
+		data = json.loads(response.text)
+		self.assertEqual(data['status'], 'error')
+
+		# Test a bad hostname/ip
+		# Expected result: status = error
+		params = {'ip': 'thisserverdoesnotexist.com', 'port': '8080'}
+		request, response = app.test_client.post('/steam_server', data=json.dumps(params))
+		self.assertEqual(response.status, 200)
+		data = json.loads(response.text)
+		self.assertEqual(data['status'], 'error')
+
 if __name__ == '__main__':
 	unittest.main()

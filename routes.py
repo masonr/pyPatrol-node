@@ -32,3 +32,6 @@ def routes(app):
 	async def tcp_socket_req(request):
 		return tcp_socket.invoke(request)
 
+	@app.route("/steam_server", methods=['POST'])
+	async def steam_server_req(request):
+		return steam_server.invoke(request)
