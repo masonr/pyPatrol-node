@@ -28,3 +28,7 @@ def routes(app):
 	async def http_response_req(request):
 		return http_response.invoke(request)
 
+	@app.route("/tcp_socket", methods=['POST'])
+	async def tcp_socket_req(request):
+		return tcp_socket.invoke(request)
+
