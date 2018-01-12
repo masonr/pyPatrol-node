@@ -24,3 +24,7 @@ def routes(app):
 	async def cert_req(request):
 		return cert.invoke(request)
 
+	@app.route("/http_response", methods=['POST'])
+	async def http_response_req(request):
+		return http_response.invoke(request)
+
