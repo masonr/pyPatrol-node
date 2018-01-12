@@ -17,7 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
   * [requests](https://pypi.python.org/pypi/requests)
   
 ```bash
-  $ pip3 install sanic python-valve>=0.2.1 aiohttp requests
+  $ pip3 install sanic "python-valve>=0.2.1" aiohttp requests
 ```
 
 * The host machine must be IPv6-capable.
