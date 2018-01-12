@@ -49,3 +49,14 @@ After running all of the tests for each module, the final output should say - "O
 ```bash
   $ python3 app.py
 ```
+
+## Capabilities / Documentation
+
+[REST API Specifications](docs/REST_API/README.md)
+* [/status](docs/REST_API/status.md) - Returns status of the pyPatrol node
+* [/ping](docs/REST_API/ping.md) - Pings (via IPv4) a specified IP/hostname
+* [/ping6](docs/REST_API/ping6.md) - Pings (via IPv6) a specified IP/hostname
+* [/http_response](docs/REST_API/http_response.md) - Checks the HTTP response code of a given URL
+* [/cert](docs/REST_API/cert.md) - Checks if an SSL certificate is valid or will expire within a specified threshold
+* [/tcp_socket](docs/REST_API/tcp_socket.md) - Checks if a specified IP/hostname and port are listening for connections (TCP)
+* [/steam_server](docs/REST_API/steam_server.md) - Checks if a Steam Server running on a specified IP/hostname and port is online
