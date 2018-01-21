@@ -9,13 +9,12 @@ def ping(ip_addr):
 
 	response = os.system("ping -c 1 -w2 " + ip_addr + " > /dev/null 2>&1")
 	if response == 0:
-	  status = "online"
+		status = "online"
 	else:
-	  status = "offline"
+		status = "offline"
 
 	return status
 
 def invoke(request):
 	ip_addr = request.json['ip']
-	print(ip_addr)
 	return json({"status": ping(ip_addr)})

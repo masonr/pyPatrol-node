@@ -19,6 +19,5 @@ def invoke(request):
 		redirects = True
 	else:
 		redirects = False
-	print(hostname + " + redirects allowed?: " + str(redirects))
 	status, code = check_website(hostname, redirects)
 	return json({"status": status, "code": code})

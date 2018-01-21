@@ -18,5 +18,4 @@ def check_socket(host, port):
 def invoke(request):
 	host = request.json['ip']
 	port = int(request.json['port'])
-	print(host + " + : " + str(port))
 	return json({"status": check_socket(host, port)})
