@@ -30,9 +30,15 @@ These instructions will get you a copy of the project up and running on your loc
   $ git clone https://github.com/masonr/pyPatrol
 ```
 
+2. Move the pyPatrol directory to /opt/
+
+```bash
+  $ mv pyPatrol /opt/
+```
+
 2. Run the unittests
 ```bash
-  $ cd pyPatrol
+  $ cd /opt/pyPatrol
   $ python3 test.py
 ```
 After running all of the tests for each module, the final output should say - "OK".
@@ -42,13 +48,42 @@ After running all of the tests for each module, the final output should say - "O
 1. Navigate to the pyPatrol directory
 
 ```bash
-  $ cd /path/to/pyPatrol
+  $ cd /opt/pyPatrol
 ```
 
 2. Run the Sanic application
 
 ```bash
   $ python3 app.py
+```
+
+### Running As A Service
+
+#### systemd
+
+1. Navigate to the misc subdirectory
+
+```bash
+  $ cd /opt/pyPatrol/misc
+```
+
+2. Edit the _pypatrol.service_ file and add the User to run the service as (suggested to be a non-root user). Then, copy the file into the systemd services directory
+
+```bash
+  $ sudo cp pypatrol.service /etc/systemd/system/
+```
+
+3. Start the pyPatrol service and verify that it is running correctly
+
+```bash
+  $ sudo service pypatrol start
+  $ sudo service pypatrol status
+```
+
+4. _(Optional)_ Setup pyPatrol to start on boot
+
+```bash
+  $ sudo systemctl enable pypatrol
 ```
 
 ## Capabilities / Documentation

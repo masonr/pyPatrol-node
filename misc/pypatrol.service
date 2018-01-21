@@ -1,0 +1,12 @@
+[Unit]
+Description=pyPatrol Monitoring Node
+After=network.target
+
+[Service]
+Type=simple
+IgnoreSIGPIPE=no
+User=user
+ExecStart=/usr/bin/python3 /opt/pyPatrol/app.py
+
+[Install]
+WantedBy=multi-user.target
