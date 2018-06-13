@@ -232,7 +232,7 @@ class UnitTests(unittest.TestCase):
 		if (ipv4_capable):
 			# Test a (hopefully) valid Steam server (pulled one from gametracker.com -- may go offline)
 			# Expected result: status = online
-			params = {'ip': '46.188.102.34', 'port': '27030'}
+			params = {'ip': '74.91.113.28', 'port': '27003'}
 			request, response = app.test_client.post('/steam_server', data=json.dumps(params))
 			self.assertEqual(response.status, 200)
 			data = json.loads(response.text)
