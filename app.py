@@ -3,14 +3,14 @@ from sanic.response import json
 import threading, requests, time, json
 import routes
 
-app = Sanic()
+app = Sanic(strict_slashes=True)
 routes.routes(app)
 
 # config vars
 node_ip="127.0.0.1"				# ip or hostname of the pyPatrol node
 node_port=12345					# port of the pyPatrol node
-mothership_host="127.0.0.1"			# ip or hostname of the pyMothership server
-mothership_port=12346				# port of the pyMothership server
+mothership_host="127.0.0.1"		# ip or hostname of the pyMothership server
+mothership_port=12346			# port of the pyMothership server
 ipv4_capable=True				# pyPatrol node ipv4 capable?
 ipv6_capable=True				# pyPatrol node ipv6 capable?
 standalone=True					# standalone mode or connect to pyMothership server

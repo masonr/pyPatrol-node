@@ -4,7 +4,7 @@ Distributed ping and service monitor using Python3 + Sanic
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your machine.
 
 ### Prerequisites
 
@@ -15,12 +15,25 @@ These instructions will get you a copy of the project up and running on your loc
   * [python-valve](https://pypi.python.org/pypi/python-valve) [v0.2.1 or later]
   * [aiohttp](https://pypi.python.org/pypi/aiohttp)
   * [requests](https://pypi.python.org/pypi/requests)
+  * [sanic-openapi](https://github.com/channelcat/sanic-openapi)
   
 ```bash
-  $ pip3 install sanic "python-valve>=0.2.1" aiohttp requests
+  $ pip3 install sanic "python-valve>=0.2.1" aiohttp requests sanic-openapi
 ```
 
-* The host machine must be IPv6-capable.
+### Configuration
+
+Within the _app.py_ file are several configuration parameters that need to be set:
+  * **node_ip** - ip or hostname of the pyPatrol node
+  * **node_port** - port that the pyPatrol service will bind to
+  * **mothership_host** - ip or hostname of the pyMothership server
+  * **mothership_port** - port of the pyMothership server
+  * **ipv4_capable** - pyPatrol node ipv4 capable?
+  * **ipv6_capable** - pyPatrol node ipv6 capable?
+  * **standalone** - standalone mode or connect to pyMothership server
+  * **num_of_workers** - number of async workers
+  * **use_ssl** - set if SSL (HTTPS) connections should be utilized
+  * **ssl** - SSL certificate information if use_ssl is True
 
 ### Installing
 
@@ -36,7 +49,10 @@ These instructions will get you a copy of the project up and running on your loc
   $ mv pyPatrol /opt/
 ```
 
-2. Run the unittests
+3. Configure the pyPatrol node using the parameters described above in the _app.py_ file
+
+4. Run the unittests
+
 ```bash
   $ cd /opt/pyPatrol
   $ python3 test.py
