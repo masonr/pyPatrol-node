@@ -15,7 +15,7 @@ These instructions will get you a copy of the project up and running on your mac
   * [python-valve](https://pypi.python.org/pypi/python-valve) [v0.2.1 or later]
   * [aiohttp](https://pypi.python.org/pypi/aiohttp)
   * [requests](https://pypi.python.org/pypi/requests)
-  * [sanic-openapi](https://github.com/channelcat/sanic-openapi)
+  * [sanic-openapi](https://pypi.python.org/pypi/sanic-openapi)
   
 ```bash
   $ pip3 install sanic "python-valve>=0.2.1" aiohttp requests sanic-openapi
