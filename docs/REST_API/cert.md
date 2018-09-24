@@ -23,24 +23,24 @@
   
 * **SSL Certificate Valid Response:**
 
-  * **Content:** `{ 'valid': 'true', 'reason': 'valid' }`
+  * **Content:** `{ 'status': 'valid', 'reason': 'valid' }`
      * If SSL certificate expires later than current date + *buffer*
  
      OR
      
-  * **Content:** `{ 'valid': 'true', 'reason': 'expires soon' }`
+  * **Content:** `{ 'status': 'valid', 'reason': 'expires soon' }`
      * If SSL certificate is valid but expires before the number of buffer days has passed
  
 * **SSL Certificate Expired Response:**
 
-  * **Content:** `{ 'valid': 'false', 'reason': 'expired'  }`
+  * **Content:** `{ 'status': 'invalid', 'reason': 'expired'  }`
   
 * **Error Response:**
 
-  * **Content:** `{ 'valid': 'false', 'reason': 'timeout' }`
+  * **Content:** `{ 'status': 'error', 'reason': 'timeout' }`
      * If hit timeout trying to connect to the specified hostname
      
      OR
      
-  * **Content:** `{ 'valid': 'false', 'reason': 'error' }`
+  * **Content:** `{ 'status': 'error', 'reason': 'error' }`
   

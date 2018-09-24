@@ -16,13 +16,13 @@ def check_cert(hostname, buffer_days):
 		conn.connect((hostname, 443))
 	except ssl.SSLError: # expired or misconfigured
 		conn.close()
-		return "false", "expired"
+		return "invalid", "expired"
 	except socket.timeout: # timeout connecting to host
 		conn.close()
-		return "false", "timeout"
+		return "error", "timeout"
 	except: # other error
 		conn.close()
-		return "false", "error"
+		return "error", "error"
 
 	cert = conn.getpeercert()
 	conn.close()
@@ -31,17 +31,17 @@ def check_cert(hostname, buffer_days):
 
 	if days_left < datetime.timedelta(days=0):
 		# Cert is expired
-		return "false", "expired"
+		return "invalid", "expired"
 	elif days_left < datetime.timedelta(days=int(buffer_days)):
 		# Cert expires in days buffer range
-		return "true", "expires soon"
+		return "valid", "expires soon"
 	else:
 		# Cert is valid
-		return "true", "valid"
+		return "valid", "valid"
 
 
 def invoke(request):
 	hostname = request.json['hostname']
 	buffer_days = request.json['buffer']
 	valid_res, reason = check_cert(hostname, buffer_days)
-	return json({"valid": valid_res, "reason": reason})
+	return json({"status": valid_res, "reason": reason})

@@ -88,39 +88,39 @@ class UnitTests(unittest.TestCase):
 	def test_cert(self):
 		if (ipv4_capable): # only run tests if IPv4 capable
 			# Test a (hopefully) valid cert
-			# Expected result: valid = true, reason = valid
+			# Expected result: status = valid, reason = valid
 			params = {'hostname': 'sha256.badssl.com', 'buffer': '14'}
 			request, response = app.test_client.post('/cert', data=json.dumps(params))
 			self.assertEqual(response.status, 200)
 			data = json.loads(response.text)
-			self.assertEqual(data['valid'], 'true')
+			self.assertEqual(data['status'], 'valid')
 			self.assertEqual(data['reason'], 'valid')
 
 			# Test a (hopefully) valid cert that expires within threshold
-			# Expected result: valid = true, reason = expires soon
+			# Expected result: status = valid, reason = expires soon
 			params = {'hostname': 'sha256.badssl.com', 'buffer': '10000'}
 			request, response = app.test_client.post('/cert', data=json.dumps(params))
 			self.assertEqual(response.status, 200)
 			data = json.loads(response.text)
-			self.assertEqual(data['valid'], 'true')
+			self.assertEqual(data['status'], 'valid')
 			self.assertEqual(data['reason'], 'expires soon')
 
 			# Test an expired cert
-			# Expected result: valid = false, reason = expired
+			# Expected result: status = invalid, reason = expired
 			params = {'hostname': 'expired.badssl.com', 'buffer': '14'}
 			request, response = app.test_client.post('/cert', data=json.dumps(params))
 			self.assertEqual(response.status, 200)
 			data = json.loads(response.text)
-			self.assertEqual(data['valid'], 'false')
+			self.assertEqual(data['status'], 'invalid')
 			self.assertEqual(data['reason'], 'expired')
 
 			# Test an invalid domain
-			# Expected result: valid = false, reason = error
+			# Expected result: valid = error, reason = error
 			params = {'hostname': 'thisserverdoesnotexist.com', 'buffer': '14'}
 			request, response = app.test_client.post('/cert', data=json.dumps(params))
 			self.assertEqual(response.status, 200)
 			data = json.loads(response.text)
-			self.assertEqual(data['valid'], 'false')
+			self.assertEqual(data['status'], 'error')
 			self.assertEqual(data['reason'], 'error')
 		else:
 			print('This node is not IPv4 capable, skipping certificate tests...')
