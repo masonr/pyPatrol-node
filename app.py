@@ -8,14 +8,14 @@ routes.routes(app)
 
 def heartbeat():
 	data = {
-			'name': node_name,
-			'ip': node_ip,
-			'port': node_port,
-			'ipv4': ipv4_capable,
-			'ipv6': ipv6_capable,
-			'ssl': use_ssl,
-			'secret': server_secret
-			}
+		'name': node_name,
+		'ip': node_ip,
+		'port': node_port,
+		'ipv4': ipv4_capable,
+		'ipv6': ipv6_capable,
+		'ssl': use_ssl,
+		'secret': server_secret
+		}
 
 	while True:
 		try:
@@ -56,7 +56,7 @@ if __name__ == "__main__":
 	ssl = {'cert': ssl_cert, 'key': ssl_key}
 
 	if not standalone:
-       		d = threading.Thread(name='heartbeat', target=heartbeat)
+		d = threading.Thread(name='heartbeat', target=heartbeat)
         	d.setDaemon(True)
         	d.start()
 
