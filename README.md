@@ -27,6 +27,7 @@ Within the pyPatrol config file are several parameters that need to be set:
   * **node_name** - unique name of the pyPatrol node
   * **node_ip** - ip or hostname of the pyPatrol node
   * **node_port** - port that the pyPatrol service will bind to
+  * **bind_protocol** - which internet protocol to bind to ('ipv4' or 'ipv6')
   * **ipv4_capable** - pyPatrol node ipv4 capable?
   * **ipv6_capable** - pyPatrol node ipv6 capable?
   * **num_of_workers** - number of async workers

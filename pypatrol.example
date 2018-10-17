@@ -2,6 +2,7 @@
 node_name = node1
 node_ip = node.pypatrol.io
 node_port = 12345
+bind_protocol = ipv4
 ipv4_capable = yes
 ipv6_capable = yes
 num_of_workers = 10
