@@ -23,17 +23,20 @@ These instructions will get you a copy of the project up and running on your mac
 
 ### Configuration
 
-Within the _app.py_ file are several configuration parameters that need to be set:
+Within the pyPatrol config file are several parameters that need to be set:
+  * **node_name** - unique name of the pyPatrol node
   * **node_ip** - ip or hostname of the pyPatrol node
   * **node_port** - port that the pyPatrol service will bind to
-  * **mothership_host** - ip or hostname of the pyMothership server
-  * **mothership_port** - port of the pyMothership server
   * **ipv4_capable** - pyPatrol node ipv4 capable?
   * **ipv6_capable** - pyPatrol node ipv6 capable?
-  * **standalone** - standalone mode or connect to pyMothership server
   * **num_of_workers** - number of async workers
+  * **server_host** - ip or hostname of the pyPatrol server
+  * **server_port** - port of the pyPatrol server
+  * **server_secret** - a secret string that authorizes the pyPatrol node with the server
+  * **standalone** - standalone mode or connect to pyPatrol server
   * **use_ssl** - set if SSL (HTTPS) connections should be utilized
-  * **ssl** - SSL certificate information if use_ssl is True
+  * **ssl_cert** - SSL certificate file path if use_ssl is True
+  * **ssl_key** - SSL key file path if use_ssl is True
 
 ### Installing
 
@@ -49,9 +52,15 @@ Within the _app.py_ file are several configuration parameters that need to be se
   $ mv pyPatrol /opt/
 ```
 
-3. Configure the pyPatrol node using the parameters described above in the _app.py_ file
+3. Copy the example configuration file
 
-4. Run the unittests
+```bash
+  $ cp pypatrol.example pypatrol.conf
+```
+
+4. Configure the pyPatrol node using the parameters described above in the _pypatrol.conf_ file
+
+5. Run the unittests
 
 ```bash
   $ cd /opt/pyPatrol
