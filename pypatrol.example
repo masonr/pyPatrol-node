@@ -1,0 +1,18 @@
+[node]
+node_name = node1
+node_ip = node.pypatrol.io
+node_port = 12345
+ipv4_capable = yes
+ipv6_capable = yes
+num_of_workers = 10
+
+[server]
+server_host = server.pypatrol.io
+server_port = 12346
+server_secret = daylight
+standalone = no
+
+[ssl]
+use_ssl = no
+ssl_cert = /path/to/cert
+ssl_key = /path/to/keyfile

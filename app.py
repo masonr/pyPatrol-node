@@ -1,25 +1,10 @@
 from sanic import Sanic
 from sanic.response import json
-import threading, time, json, socket, sys
+import threading, time, json, socket, sys, configparser
 import routes
 
 app = Sanic(strict_slashes=True)
 routes.routes(app)
-
-# config vars
-node_name="PYPATROL_NODE1"		# descriptor of the pyPatrol node
-node_ip="127.0.0.1"				# ip or hostname of the pyPatrol node
-node_port=12345					# port of the pyPatrol node
-server_host="127.0.0.1"			# ip or hostname of the pyPatrol server
-server_port=12355				# port of the pyPatrol server
-server_secret="secret"			# secret keyword for auth to pyPatrol server
-ipv4_capable=True				# pyPatrol node ipv4 capable?
-ipv6_capable=True				# pyPatrol node ipv6 capable?
-standalone=False				# standalone mode or connect to pyPatrol server
-num_of_workers=10				# number of async workers
-use_ssl=False					# set if SSL (HTTPS) connections should be utilized
-if use_ssl:						# fill in SSL certificate information if use_ssl is True
-	ssl = {'cert': "/path/to/cert", 'key': "/path/to/keyfile"}
 
 def heartbeat():
 	data = {
@@ -43,13 +28,49 @@ def heartbeat():
 			sock.close()
 		time.sleep(30) # sleep for 30s
 
-if not standalone:
-	d = threading.Thread(name='heartbeat', target=heartbeat)
-	d.setDaemon(True)
-	d.start()
-
 if __name__ == "__main__":
-	if use_ssl:
-		app.run(host="0.0.0.0", port=node_port, workers=num_of_workers, ssl=ssl)
+	# read pypatrol config
+	#global config
+	config = configparser.ConfigParser()
+	config.read('pypatrol.conf')
+
+	# populate pyPatrol-node settings
+	node_name = config['node']['node_name']
+	node_ip = config['node']['node_ip']
+	node_port = int(config['node']['node_port'])
+	bind_protocol = config['node']['bind_protocol']
+	ipv4_capable = config.getboolean('node', 'ipv4_capable')
+	ipv6_capable = config.getboolean('node', 'ipv6_capable')
+	num_of_workers = int(config['node']['num_of_workers'])
+
+	# populate pyPatrol-server settings
+	server_host = config['server']['server_host']
+	server_port = int(config['server']['server_port'])
+	server_secret = config['server']['server_secret']
+	standalone = config.getboolean('server', 'standalone')
+	
+	# populate SSL settings
+	use_ssl = config.getboolean('ssl', 'use_ssl')
+	ssl_cert = config['ssl']['ssl_cert']
+	ssl_key = config['ssl']['ssl_key']
+	ssl = {'cert': ssl_cert, 'key': ssl_key}
+
+	if not standalone:
+       		d = threading.Thread(name='heartbeat', target=heartbeat)
+        	d.setDaemon(True)
+        	d.start()
+
+	if (bind_protocol == "ipv6"):
+		sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
+		sock.bind(('::', node_port))
+		if use_ssl:
+			app.run(sock=sock, workers=num_of_workers, ssl=ssl)
+		else:
+			app.run(sock=sock, workers=num_of_workers)
+	elif (bind_protocol == "ipv4"):
+		if use_ssl:
+			app.run(host="0.0.0.0", port=node_port, workers=num_of_workers, ssl=ssl)
+		else:
+			app.run(host="0.0.0.0", port = node_port, workers=num_of_workers)
 	else:
-		app.run(host="0.0.0.0", port=node_port, workers=num_of_workers)
+		print("Error parsing \"bind_protocol\". Please enter \'ipv4\' or \'ipv6\'.")
