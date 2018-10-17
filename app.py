@@ -30,7 +30,6 @@ def heartbeat():
 
 if __name__ == "__main__":
 	# read pypatrol config
-	#global config
 	config = configparser.ConfigParser()
 	config.read('pypatrol.conf')
 
@@ -57,8 +56,8 @@ if __name__ == "__main__":
 
 	if not standalone:
 		d = threading.Thread(name='heartbeat', target=heartbeat)
-        	d.setDaemon(True)
-        	d.start()
+		d.setDaemon(True)
+		d.start()
 
 	if (bind_protocol == "ipv6"):
 		sock = socket.socket(socket.AF_INET6, socket.SOCK_STREAM)
