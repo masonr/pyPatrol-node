@@ -1,5 +1,6 @@
 from sanic import Sanic
 from sanic.response import json
+from os import path
 import threading, time, json, socket, sys, configparser
 import routes
 
@@ -31,7 +32,9 @@ def heartbeat():
 if __name__ == "__main__":
 	# read pypatrol config
 	config = configparser.ConfigParser()
-	config.read('pypatrol.conf')
+	basepath = path.dirname(__file__)
+	filepath = path.abspath(path.join(basepath, 'pypatrol.conf'))
+	config.read(filepath)
 
 	# populate pyPatrol-node settings
 	node_name = config['node']['node_name']
