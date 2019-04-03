@@ -15,7 +15,7 @@ def routes(app):
 	app.config.API_TITLE = 'pyPatrol API'
 	app.config.API_DESCRIPTION = 'API Specification for pyPatrol Nodes'
 	app.config.API_TERMS_OF_SERVICE = 'Use at own risk!'
-	app.config.API_LICENSE_NAME = 'MIT License'
+	app.config.API_LICENSE_NAME = 'WTFPL License'
 	app.config.API_LICENSE_URL = 'https://github.com/masonr/pyPatrol/blob/master/LICENSE'
 	app.config.API_PRODUCES_CONTENT_TYPES = ['application/json']
 	app.config.API_CONTACT_EMAIL = 'mason@rowe.sh'
